@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - .env.template
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    profiles:
+      - migrate
+      - start-postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+  sqlite-migrator:
+    build:
+      context: sqlite-migrator
+      dockerfile: Dockerfile
+    env_file:
+      - .env.template
+    volumes:
+      - ./sqlite-migrator/data:/db
+    command: ["pgloader",  "sqlite:///db/data.sqlite", "pgsql://postgres:example@postgres/postgres"]
+    profiles:
+      - migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+  dbt-pipeline:
+    build:
+      context: dbt
+      dockerfile: Dockerfile
+    profiles:
+      - dbt

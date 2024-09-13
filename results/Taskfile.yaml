@@ -1,0 +1,68 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task: setup-env
+      - task: integration-test
+      - task: shutdown
+  install-linux-dependencies-debian:
+    cmds:
+      - task: install-docker
+      - task: install-poetry
+      - task: install-pyenv
+  install-docker:
+    cmds:
+      - sudo apt install docker.io docker-compose-v2
+      - sudo groupadd docker || echo "group already exists"
+      - sudo usermod -aG docker $USER || echo "User already added to group"
+  install-poetry:
+    cmds:
+      - curl -sSL https://install.python-poetry.org | python3 -
+      - echo 'export PATH="$HOME/.poetry/bin:$PATH"' >> ~/.bashrc
+      - export PATH="$HOME/.poetry/bin:$PATH"
+      - poetry completions bash >> ~/.bash_completion
+  install-pyenv:
+    cmds:
+      - >
+        sudo apt install make build-essential libssl-dev zlib1g-dev libbz2-dev
+        libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils
+        tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+      - curl https://pyenv.run | bash || echo "PyEnv already installed"
+      - echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+      - echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+      - echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+  run-dbt-pipeline: # Local examples
+    dir: "./dbt/feldm"
+    cmds:
+      -  dbt run
+  run-dbt-test: # local examples
+    dir: "./dbt/feldm"
+    cmds:
+      - dbt test
+  copy-files-sqlite:
+    dir: "./sqlite-migrator"
+    cmds:
+      - mkdir data
+      - cp ../../data.sqlite data/data.sqlite
+  migrate-and-run:
+    dir: "./sqlite-migrator"
+    deps:
+      - copy-files-sqlite
+    cmds:
+      - docker compose build  --no-cache
+      - docker compose --profile migrate up
+      - rm -R data
+  post-migratio-run:
+    cmds:
+      - docker compose --profile start-postgres up -d
+  integration-test:
+    cmds:
+      - docker compose --profile integration-test up -d
+  shutdown:
+    cmds:
+      - docker compose down
+  set-dbt-profiles:
+    dir: "./dbt/feldm"
+    cmds:
+      - export DBT_PROFILES_DIR="$PWD"

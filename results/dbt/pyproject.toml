@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pipeline"
+version = "0.1.0"
+description = ""
+authors = ["Celine Geelen"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlfmt = "^0.0.3"
+dbt-core = "^1.8.6"
+dbt-postgres = "^1.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
