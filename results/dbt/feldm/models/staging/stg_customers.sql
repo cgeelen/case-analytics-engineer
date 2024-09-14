@@ -7,7 +7,7 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    customerid AS customer_id,
+    customerid::varchar AS customer_id,
     companyname AS company_name,
     contacttitle AS contact_title,
     city,
@@ -15,11 +15,11 @@ renamed AS (
     country
     -- PII-sensitive data: Should be masked with access
     -- to columns regulated by legal policy or completely left out.
-    --"address" AS contact_address,
-    --postalcode AS postal_code,
-    --contactname AS contact_name,
-    --phone,
-    --fax
+    {# "address" AS contact_address,
+    postalcode AS postal_code,
+    contactname AS contact_name,
+    phone,
+    fax #}
 
   FROM source
 

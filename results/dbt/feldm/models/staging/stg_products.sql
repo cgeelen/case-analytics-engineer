@@ -7,7 +7,7 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    productid AS product_id,
+    productid::varchar AS product_id,
     productname AS product_name,
     categoryid AS category_id,
     quantityperunit AS quantity_per_unit,

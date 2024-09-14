@@ -4,7 +4,7 @@ WITH source AS (
 
 renamed AS (
   SELECT
-    categoryid AS category_id,
+    categoryid::varchar AS category_id,
     categoryname AS category_name,
     description AS category_description,
     picture AS category_picutre

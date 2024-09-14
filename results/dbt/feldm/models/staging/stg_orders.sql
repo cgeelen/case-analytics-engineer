@@ -7,7 +7,7 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    orderid AS order_id,
+    orderid::varchar AS order_id,
     customerid AS customer_id,
     employeeid AS employee_id,
     orderdate AS order_date,
@@ -16,11 +16,13 @@ renamed AS (
     shipvia AS ship_via,
     freight AS freight,
     shipname AS ship_name,
-    shipaddress AS ship_address,
     shipcity AS city,
     shipregion AS region,
-    shippostalcode AS postal_code,
     shipcountry AS country
+    -- PII-sensitive data: Should be masked with access
+    -- to columns regulated by legal policy or completely left out.
+    {# shippostalcode AS postal_code,
+    shipaddress AS ship_address #}
 
   FROM source
 

@@ -7,7 +7,7 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    shipperid AS shipper_id,
+    shipperid::varchar AS shipper_id,
     companyname AS company_name,
     phone
 

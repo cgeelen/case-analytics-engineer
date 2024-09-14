@@ -7,25 +7,27 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    employeeid AS employee_id,
-   
+    employeeid::varchar AS employee_id,
     title,
     titleofcourtesy AS title_of_courtesy,
-    birthdate,
     hiredate AS hired_date,
-    address,
     city AS city,
     region AS region,
-    postalcode AS postal_code,
     country AS country,
-    homephone,
+    notes,
+    reportsto AS reports_toe
+    
+    -- PII-sensitive data: Should be masked with access
+    -- to columns regulated by legal policy or completely left out.
+    {# homephone,
     extension,
     photo,
-    notes,
-    reportsto AS reports_toe,
+    postalcode AS postal_code,
+    address AS employee_address,
+    birthdate,
     lastname AS last_name,
     firstname AS first_name,
-    photopath
+    photopath #}
 
   FROM source
 

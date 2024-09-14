@@ -7,7 +7,7 @@ WITH source AS (
 renamed AS (
 
   SELECT
-    orderid AS order_id,
+    orderid::varchar AS order_id,
     productid AS productid,
     unitprice AS unit_price,
     quantity AS quantity,
