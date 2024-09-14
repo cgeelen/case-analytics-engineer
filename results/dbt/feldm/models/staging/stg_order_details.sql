@@ -8,7 +8,7 @@ renamed AS (
 
   SELECT
     orderid::varchar AS order_id,
-    productid AS productid,
+    productid::varchar AS product_id,
     unitprice AS unit_price,
     quantity AS quantity,
     discount AS discount

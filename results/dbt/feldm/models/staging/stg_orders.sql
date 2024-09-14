@@ -10,15 +10,15 @@ renamed AS (
     orderid::varchar AS order_id,
     customerid AS customer_id,
     employeeid AS employee_id,
-    orderdate AS order_date,
-    requireddate AS required_date,
-    shippeddate AS shipped_date,
+    nullif(orderdate, 'NULL')::date AS order_date,
+    nullif(requireddate, 'NULL')::date AS required_date,
+    nullif(shippeddate, 'NULL')::date AS shipped_date,
     shipvia AS ship_via,
     freight AS freight,
     shipname AS ship_name,
-    shipcity AS city,
-    shipregion AS region,
-    shipcountry AS country
+    shipcity AS ship_city,
+    shipregion AS ship_region,
+    shipcountry AS ship_country
     -- PII-sensitive data: Should be masked with access
     -- to columns regulated by legal policy or completely left out.
     {# shippostalcode AS postal_code,
