@@ -1,0 +1,65 @@
+versions: 2
+
+sources:
+  - name: staging
+    schema: public
+    database: postgres
+    tables:
+      - name: categories
+      - name: employees
+      - name: customers
+      - name: order_details
+      - name: orders
+      - name: products
+      - name: shippers
+
+models:
+  - name: stg_categories
+    description: tbd
+    columns:
+      - name: category_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_customers
+    description: tbd
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_employees
+    description: tbd
+    columns:
+      - name: employee_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_order_details
+    description: tbd
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_orders
+    description: tbd
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_products
+    description: tbd
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_shippers
+    description: tbd
+    columns:
+      - name: shipper_id
+        data_tests:
+          - unique
+          - not_null

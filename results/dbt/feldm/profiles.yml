@@ -1,13 +1,13 @@
 feldm:
   outputs:
-    dev:
+    prod:
       dbname: postgres
       host: localhost
       pass: example
       port: 5432
-      schema: public
+      schema: dbt_celine
       threads: 2
       type: postgres
       user: postgres
-  target: dev
+  target: prod
   

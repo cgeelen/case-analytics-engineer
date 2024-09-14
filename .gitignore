@@ -1,3 +1,4 @@
 results/postgres_data/**
 results/sqlite-migrator/data/**
 results/.env
+settings.json
