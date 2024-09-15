@@ -4,7 +4,7 @@ tasks:
   default:
     cmds:
       - task: install-linux-dependencies-debian
-      - task: integration-test
+      - task: migrate-and-run
       - task: shutdown
   install-linux-dependencies-debian:
     cmds:
@@ -48,9 +48,6 @@ tasks:
   post-migration-run:
     cmds:
       - docker compose --profile start-postgres up -d
-  integration-test:
-    cmds:
-      - docker compose --profile integration-test up -d
   shutdown:
     cmds:
       - docker compose down

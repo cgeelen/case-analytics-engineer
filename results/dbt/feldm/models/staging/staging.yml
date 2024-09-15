@@ -68,10 +68,23 @@ models:
               field: order_id
       - name: unit_price
         description: '{{ doc("order_unit_price") }}'
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
       - name: quantity
         description: '{{ doc("order_quantity") }}'
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
       - name: discount_perc
         description: '{{ doc("order_discount_perc") }}'
+        data_tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 1
+              inclusive: true
   - name: stg_orders
     description: tbd
     columns:
