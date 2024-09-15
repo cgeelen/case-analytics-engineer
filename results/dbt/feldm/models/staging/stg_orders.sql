@@ -15,6 +15,10 @@ renamed AS (
     nullif(shippeddate, 'NULL')::date AS shipped_date,
     shipvia::varchar AS shipper_id,
     freight AS freight,
+    -- These columns are attributes of customers
+    -- Downstream these attributes should be taken from the
+    -- customers table instead. Verify, whether they can
+    -- be left out in the staging layer.
     shipcity AS ship_city,
     shipcountry AS ship_country,
     replace(shipname, '''', '') AS ship_name,

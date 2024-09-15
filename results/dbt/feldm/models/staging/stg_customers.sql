@@ -11,7 +11,7 @@ renamed AS (
     companyname AS company_name,
     contacttitle AS contact_title,
     city,
-    region,
+    nullif(region, 'NULL') AS region,
     country
     -- PII-sensitive data: Should be masked with access
     -- to columns regulated by legal policy or completely left out.

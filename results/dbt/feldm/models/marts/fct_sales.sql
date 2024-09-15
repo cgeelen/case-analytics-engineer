@@ -16,11 +16,7 @@ orders AS (
         order_date,
         required_date,
         shipped_date,
-        freight,
-        ship_name,
-        ship_city,
-        ship_region,
-        ship_country
+        freight
     FROM {{ ref('stg_orders') }}
 
     {% if is_incremental() %}
@@ -70,10 +66,6 @@ final AS (
         orders.required_date,
         orders.shipped_date,
         orders.freight,
-        orders.ship_name,
-        orders.ship_city,
-        orders.ship_region,
-        orders.ship_country,
         order_details.product_id,
         order_details.unit_price,
         order_details.quantity,
@@ -89,9 +81,22 @@ final AS (
 )
 
 SELECT
-    *
-    ,{{ dbt_utils.generate_surrogate_key([
+    {{ dbt_utils.generate_surrogate_key([
         'order_id',
         'product_id'
-    ])}} AS sk_order_id
+    ])}} AS sk_order_id,
+    order_id,
+    customer_id,
+    employee_id,
+    shipper_id,
+    product_id,
+    order_date,
+    required_date,
+    shipped_date,
+    freight,
+    unit_price,
+    quantity,
+    discount_perc,
+    is_repeat_customer,
+    days_between_first_last_order
 FROM final
