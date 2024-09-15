@@ -71,8 +71,9 @@ final AS (
         order_details.unit_price,
         order_details.quantity,
         order_details.discount,
-        coalesce(order_date > repeat_customers.first_purchase_date, false) AS is_repeat_customer,
-        coalesce(first_purchase_date::date - order_date::date, 0) AS days_between_first_last_order
+        repeat_customers.first_purchase_date,
+        coalesce(orders.order_date > repeat_customers.first_purchase_date, false) AS is_repeat_customer,
+        coalesce(repeat_customers.first_purchase_date::date - order_date::date, 0) AS days_between_first_last_order
     FROM orders
     LEFT JOIN order_details
         ON orders.order_id = order_details.order_id
