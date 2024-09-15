@@ -3,7 +3,7 @@ version: '3'
 tasks:
   default:
     cmds:
-      - task: setup-env
+      - task: install-linux-dependencies-debian
       - task: integration-test
       - task: shutdown
   install-linux-dependencies-debian:
@@ -32,14 +32,6 @@ tasks:
       - echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
       - echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
       - echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-  run-dbt-pipeline: # Local examples
-    dir: "./dbt/feldm"
-    cmds:
-      -  dbt run
-  run-dbt-test: # local examples
-    dir: "./dbt/feldm"
-    cmds:
-      - dbt test
   copy-files-sqlite:
     dir: "./sqlite-migrator"
     cmds:
@@ -67,3 +59,13 @@ tasks:
     cmds:
       - export DBT_PROFILES_DIR="$PWD"
       - dbt deps
+  run-all-dbt:
+    dir: "./dbt/feldm"
+    cmds:
+      - dbt run
+      - dbt test
+  generate-dbt-docs:
+    dir: "./dbt/feldm"
+    cmds:
+      - dbt docs generate
+      - dbt docs serve
