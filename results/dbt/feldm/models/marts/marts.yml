@@ -50,3 +50,12 @@ models:
         data_tests:
           - unique
           - not_null
+  - name: dm_customer_cohort
+    meta:
+      owner: "@celine"
+      tags: ['daily']
+    columns:
+      - name: sk_customer_cohort_id
+        data_tests:
+          - unique
+          - not_null
