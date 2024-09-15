@@ -5,6 +5,10 @@ version: '1.0.0'
 # This setting configures which "profile" dbt uses for this project.
 profile: 'feldm'
 
+# Set default timezone for the dbt project
+vars:
+  'dbt_date:time_zone': 'Europe/Berlin'
+
 # These configurations specify where dbt should look for different types of files.
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -24,9 +28,6 @@ models:
     staging:
       +materialized: view
       +schema: staging
-    intermediate:
-      +materialized: table
-      +schema: intermediate
     marts:
       +materialized: table
       +schema: marts

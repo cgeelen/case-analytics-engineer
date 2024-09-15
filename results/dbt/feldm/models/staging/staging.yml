@@ -22,12 +22,23 @@ models:
           - unique
           - not_null
   - name: stg_customers
-    description: tbd
+    description: Staging table containing customer_information
     columns:
       - name: customer_id
+        description: '{{ doc("customer_id") }}'
         data_tests:
           - unique
           - not_null
+      - name: customer_name
+        description: '{{ doc("customer_name") }}'
+      - name: contact_title
+        description: '{{ doc("contact_title") }}'
+      - name: city
+        description: '{{ doc("contact_city") }}'
+      - name: region
+        description: '{{ doc("contact_region") }}'
+      - name: country
+        description: '{{ doc("contact_country") }}'
   - name: stg_employees
     description: tbd
     columns:
@@ -36,7 +47,7 @@ models:
           - unique
           - not_null
   - name: stg_order_details
-    description: tbd
+    description: Staging table that contains details about the order.
     data_tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -44,15 +55,23 @@ models:
             - product_id
     columns:
       - name: product_id
+        description: '{{ doc("product_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_products')
               field: product_id
       - name: order_id
+        description: '{{ doc("order_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_orders')
               field: order_id
+      - name: unit_price
+        description: '{{ doc("order_unit_price") }}'
+      - name: quantity
+        description: '{{ doc("order_quantity") }}'
+      - name: discount_perc
+        description: '{{ doc("order_discount_perc") }}'
   - name: stg_orders
     description: tbd
     columns:
@@ -61,32 +80,46 @@ models:
           - unique
           - not_null
       - name: customer_id
+        description: '{{ doc("customer_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
       - name: employee_id
+        description: '{{ doc("employee_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_employees')
               field: employee_id
       - name: shipper_id
+        description: '{{ doc("shipper_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_shippers')
               field: shipper_id
       - name: order_date
+        description: '{{ doc("order_date") }}'
         data_tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: date
       - name: shipped_date
+        description: '{{ doc("shipped_date") }}'
         data_tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: date
       - name: required_date
+        description: '{{ doc("required_date") }}'
         data_tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: date
+      - name: freight
+        description: '{{ doc("freight") }}'
+      - name: ship_city
+        description: '{{ doc("contact_city") }}'
+      - name: ship_region
+        description: '{{ doc("contact_region") }}'
+      - name: ship_country
+        description: '{{ doc("contact_country") }}'
   - name: stg_products
     description: tbd
     columns:

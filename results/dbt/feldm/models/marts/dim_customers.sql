@@ -22,7 +22,7 @@ top_ten_customers AS (
 
 SELECT
   customers.customer_id,
-  customers.company_name,
+  customers.customer_name,
   customers.contact_title,
   customers.city,
   customers.region,

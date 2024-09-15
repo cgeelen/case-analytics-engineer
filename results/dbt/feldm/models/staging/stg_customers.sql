@@ -8,7 +8,7 @@ renamed AS (
 
   SELECT
     customerid::varchar AS customer_id,
-    companyname AS company_name,
+    companyname AS customer_name,
     contacttitle AS contact_title,
     city,
     nullif(region, 'NULL') AS region,

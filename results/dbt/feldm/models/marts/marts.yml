@@ -5,42 +5,90 @@ models:
     meta:
       owner: "@celine"
       tags: ['daily']
-    description: tbd
+    description: '{{ doc("fct_sales") }}'
     columns:
       - name: sk_order_id
+        description: >
+          Unique identifier of the table. It's a surrogate key
+          that is the combination of order_id and product_id.
         data_tests:
           - unique
           - not_null
       - name: customer_id
+        description: '{{ doc("customer_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
       - name: employee_id
+        description: '{{ doc("employee_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_employees')
               field: employee_id
       - name: shipper_id
+        description: '{{ doc("shipper_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_shippers')
               field: shipper_id
       - name: product_id
+        description: '{{ doc("product_id") }}'
         data_tests:
           - relationships:
               to: ref('stg_products')
               field: product_id
+      - name: order_date
+        description: '{{ doc("order_date") }}'
+      - name: shipped_date
+        description: '{{ doc("shipped_date") }}'
+      - name: required_date
+        description: '{{ doc("required_date") }}'
+      - name: freight
+        description: '{{ doc("freight") }}'
+      - name: unit_price
+        description: '{{ doc("order_unit_price") }}'
+      - name: quantity
+        description: '{{ doc("order_quantity") }}'
+      - name: discount_perc
+        description: '{{ doc("order_discount_perc") }}'
+      - name: is_repeat_customer
+        description: >
+          A boolean that is true if the customer that placed
+          the order already ordered before and false if the
+          order is the first order the customer placed.
+      - name: days_between_first_last_order
+        description: >
+          The number of days between the first order of the customer
+          and the current order of the customer.
   - name: dim_customers
     meta:
       owner: "@celine"
       tags: ['daily']
-    description: tbd
+    description: '{{ doc("dim_customers") }}'
     columns:
       - name: customer_id
+        description: '{{ doc("customer_id") }}'
         data_tests:
           - unique
           - not_null
+      - name: customer_name
+        description: '{{ doc("customer_name") }}'
+      - name: contact_title
+        description: '{{ doc("contact_title") }}'
+      - name: city
+        description: '{{ doc("contact_city") }}'
+      - name: region
+        description: '{{ doc("contact_region") }}'
+      - name: country
+        description: '{{ doc("contact_country") }}'
+      - name: no_orders
+        description: The number of orders the customer has placed.
+      - name: most_expensive_order
+        description: >
+          The value of the most expensive order calculated by
+          multiplying the quantity with the unit price and deducting
+          the discount value.
   - name: dim_dates
     meta:
       owner: "@celine"
@@ -54,8 +102,12 @@ models:
     meta:
       owner: "@celine"
       tags: ['daily']
+    description: '{{ doc("dm_customer_cohort") }}'
     columns:
       - name: sk_customer_cohort_id
+        description: >
+          The unique identifier of the table. This is a surrogate key
+          that is created out of the combination of month and country.
         data_tests:
           - unique
           - not_null
