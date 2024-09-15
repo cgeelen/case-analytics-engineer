@@ -41,3 +41,12 @@ models:
         data_tests:
           - unique
           - not_null
+  - name: dim_dates
+    meta:
+      owner: "@celine"
+      tags: ['daily']
+    columns:
+      - name: date_day
+        data_tests:
+          - unique
+          - not_null
