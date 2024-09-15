@@ -15,6 +15,9 @@ By navigating to the folder results/feldm/dbt, any dbt command can be executed t
 ## Database
 The data was provided in a sqlite extract. However, sqlite is not an official adapter of dbt and at the moment only supports up until dbt-core 1.5. Therefore, the decision was made to use postgresql so that the latest version of dbt-core can be used.
 
+## Project configuration and profiles.yml
+By default dbt has a `generate_schema_name` macro that prefixes the default schema defined in the profiles.yml to the custom_schema name defined for folders in the dbt-project.yml (or in other places in the project). Often, this is not desired behavior in the prod environment, where the custom_schema_name usually is the desired schema, where the model should be materialized. Hence, the macro is amended and added to the macros folder, and the target defined in the profiles.yml is set to prod so the models get materialized to the schemas defined in the dbt-project.yml.
+
 ## Packages
 Several packages have been added to the dbt project:
 * dbt_utils: This package contains many different utility functions, but in particular generate_surrogate_key and the unique_combination_of_columns test were used.
