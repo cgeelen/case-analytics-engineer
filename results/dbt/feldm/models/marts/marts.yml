@@ -11,6 +11,26 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: customer_id
+        data_tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: employee_id
+        data_tests:
+          - relationships:
+              to: ref('stg_employees')
+              field: employee_id
+      - name: shipper_id
+        data_tests:
+          - relationships:
+              to: ref('stg_shippers')
+              field: shipper_id
+      - name: product_id
+        data_tests:
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
   - name: dim_customers
     meta:
       owner: "@celine"

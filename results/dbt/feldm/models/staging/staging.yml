@@ -37,11 +37,22 @@ models:
           - not_null
   - name: stg_order_details
     description: tbd
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_id
+            - product_id
     columns:
+      - name: product_id
+        data_tests:
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
       - name: order_id
         data_tests:
-          - unique
-          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
   - name: stg_orders
     description: tbd
     columns:
@@ -49,6 +60,33 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: customer_id
+        data_tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: employee_id
+        data_tests:
+          - relationships:
+              to: ref('stg_employees')
+              field: employee_id
+      - name: shipper_id
+        data_tests:
+          - relationships:
+              to: ref('stg_shippers')
+              field: shipper_id
+      - name: order_date
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: shipped_date
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: required_date
+        data_tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
   - name: stg_products
     description: tbd
     columns:
