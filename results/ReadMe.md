@@ -75,4 +75,5 @@ There are many more elements that could have been added to the dbt project that 
 * [ ] The Stack has not been tested on MacOS
 * [ ] The versions of containers are not yet locked
 * [ ] Build-tests are missing
-* [ ] The employees table 
+* [ ] The employees table needs to be manually updated
+* [ ] No clean-up task has been defined yet
